@@ -24,7 +24,7 @@ class _MoedasPageState extends State<MoedasPage> {
     } else {
       return AppBar(
         elevation: 0,
-        title: Text('${selecionadas.length} moedas selecionadas'),
+        title: Text('${selecionadas.length} selecionadas'),
         backgroundColor: Colors.white,
         centerTitle: true,
         leading: IconButton(
@@ -86,6 +86,17 @@ class _MoedasPageState extends State<MoedasPage> {
         padding: EdgeInsets.all(16),
         itemCount: tabela.length,
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: selecionadas.isNotEmpty
+          ? FloatingActionButton.extended(
+              onPressed: () {},
+              icon: Icon(Icons.star),
+              label: Text(
+                'Favoritar',
+                style: TextStyle(letterSpacing: 0, fontWeight: FontWeight.bold),
+              ),
+            )
+          : null,
     );
   }
 }
