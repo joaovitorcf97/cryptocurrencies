@@ -1,6 +1,6 @@
 import 'dart:collection';
 import 'package:cryptocurrencies/adapters/moeda_hive_adapter.dart';
-import 'package:cryptocurrencies/modules/moeda.dart';
+import 'package:cryptocurrencies/models/moeda.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 

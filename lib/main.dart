@@ -1,4 +1,5 @@
 import 'package:cryptocurrencies/configs/app_settings.dart';
+import 'package:cryptocurrencies/repositories/conta_repository.dart';
 import 'package:cryptocurrencies/repositories/favotiras_repository.dart';
 import 'package:flutter/material.dart';
 import 'configs/hive_config.dart';
@@ -12,6 +13,7 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (context) => ContaRepository()),
         ChangeNotifierProvider(create: (context) => AppSettings()),
         ChangeNotifierProvider(create: (context) => FavoritasRepository()),
       ],
