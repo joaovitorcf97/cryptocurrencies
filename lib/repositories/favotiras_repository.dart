@@ -1,14 +1,15 @@
 import 'dart:collection';
-import 'package:cryptocurrencies/adapters/moeda_hive_adapter.dart';
 import 'package:cryptocurrencies/models/moeda.dart';
+import 'package:cryptocurrencies/repositories/moeda_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 class FavoritasRepository extends ChangeNotifier {
   List<Moeda> _lista = [];
   late LazyBox box;
+  MoedaRepository moedas;
 
-  FavoritasRepository() {
+  FavoritasRepository({required this.moedas}) {
     _startRepository();
   }
 
@@ -18,7 +19,6 @@ class FavoritasRepository extends ChangeNotifier {
   }
 
   _openBox() async {
-    Hive.registerAdapter(MoedaHiveAdapter());
     box = await Hive.openLazyBox<Moeda>('moedas_favoritas');
   }
 
