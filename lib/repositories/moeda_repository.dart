@@ -16,11 +16,34 @@ class MoedaRepository extends ChangeNotifier {
     _setupMoedasTable();
     _setupDadosTableMoeda();
     _readMoedasTable();
-    _refresgPrecos();
+    // _refreshPrecos();
   }
 
-  _refresgPrecos() async {
-    intervalo = Timer.periodic(Duration(minutes: 5), (_) => checkPrecos());
+  // _refreshPrecos() async {
+  //   intervalo = Timer.periodic(Duration(minutes: 5), (_) => checkPrecos());
+  // }
+
+  getHistoricoMoeda(Moeda moeda) async {
+    final response = await http.get(
+      Uri.parse(
+        'https://api.coinbase.com/v2/assets/prices/${moeda.baseId}?base=BRL',
+      ),
+    );
+    List<Map<String, dynamic>> precos = [];
+
+    if (response.statusCode == 200) {
+      final json = jsonDecode(response.body);
+      final Map<String, dynamic> moeda = json['data']['prices'];
+
+      precos.add(moeda['hour']);
+      precos.add(moeda['day']);
+      precos.add(moeda['week']);
+      precos.add(moeda['month']);
+      precos.add(moeda['year']);
+      precos.add(moeda['all']);
+    }
+
+    return precos;
   }
 
   checkPrecos() async {
@@ -124,7 +147,6 @@ class MoedaRepository extends ChangeNotifier {
             'mudancaPeriodoTotal': preco['percent_change']['all'].toString()
           });
         });
-
         await batch.commit(noResult: true);
       }
     }
